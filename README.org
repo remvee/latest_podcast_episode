@@ -1,0 +1,30 @@
+* Latest podcast episode
+
+  Given an URL of a podcast feed, redirect to the latest episode.
+
+** Build
+
+   #+BEGIN_SRC
+   lein uberjar
+   #+END_SRC
+
+** Run
+
+
+   #+BEGIN_SRC
+   java -jar target/latest_podcast_episode.jar
+   #+END_SRC
+
+** Try
+
+   Point you browser to something like: ~http://localhost:8080/https%3a//podcast.npo.nl/feed/vroegevogels.xml~
+
+** Deploy
+
+   Use ~HOST~ and ~PORT~ to configure it.
+
+** License
+
+Copyright © 2017 R.W. van 't Veer
+
+Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.

@@ -1,9 +1,7 @@
-(ns latest-podcast-url.core
+(ns latest-podcast-episode.core
   (:gen-class)
   (:require [clojure.data.xml :as xml]
             [ring.adapter.jetty :refer [run-jetty]]))
-
-(def url "http://radiobox2.omroep.nl/rss/ug_itunes/programme/35.rss")
 
 (defn podcast-data [url]
   (xml/parse-str (slurp url)))
@@ -21,12 +19,22 @@
        :attrs
        :url))
 
-(defn app [request]
-  (let [media-url (-> url podcast-data latest-url)]
+(defn url-decode [url]
+  (java.net.URLDecoder/decode url "UTF-8"))
+
+(defn app [{:keys [uri]}]
+  (let [url (->> uri
+                 (drop-while (partial = \/))
+                 (apply str)
+                 url-decode
+                 podcast-data
+                 latest-url)]
     {:status  302 ;; Found
-     :headers {"Location" media-url}}))
+     :headers {"Location" url}}))
 
 (defn -main []
   (let [host (get (System/getenv) "HOST")
         port (Integer/parseInt (get (System/getenv) "PORT" "8080"))]
-    (run-jetty #'app {:host host :port port})))
+    (run-jetty #'app {:host  host
+                      :port  port
+                      :join? false})))
