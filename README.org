@@ -17,7 +17,7 @@
 
 ** Try
 
-   Point you browser to something like: ~http://localhost:8080/https%3a//podcast.npo.nl/feed/vroegevogels.xml~
+   Point you browser to something like: ~http://localhost:8080/?https://podcast.npo.nl/feed/vroegevogels.xml~
 
 ** Deploy
 

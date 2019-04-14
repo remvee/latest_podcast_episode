@@ -22,8 +22,8 @@
 (defn url-decode [url]
   (java.net.URLDecoder/decode url "UTF-8"))
 
-(defn app [{:keys [uri]}]
-  (let [url (->> uri
+(defn app [{:keys [query-string] :as req}]
+  (let [url (->> query-string
                  (drop-while (partial = \/))
                  (apply str)
                  url-decode
